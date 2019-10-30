@@ -22,7 +22,7 @@ class ToDoForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className="todoform">
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

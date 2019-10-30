@@ -1,0 +1,11 @@
+.item {
+  cursor: pointer;
+}
+
+.item.completed {
+  text-decoration: line-through;
+}
+
+.todoform {
+  display: flex;
+}

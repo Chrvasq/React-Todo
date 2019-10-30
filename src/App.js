@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ToDoForm from "./components/TodoComponents/TodoForm";
 import ToDoList from "./components/TodoComponents/TodoList";
+import "./App.css";
 
 class App extends Component {
   // you will need a place to store your state in this component.
@@ -14,7 +15,6 @@ class App extends Component {
   }
 
   addToDo = task => {
-    console.log("Added ToDo: ", task);
     this.setState({
       data: [
         ...this.state.data,
@@ -24,15 +24,13 @@ class App extends Component {
   };
 
   clearCompleted = () => {
-    console.log("Cleared completed!");
     this.setState({ data: this.state.data.filter(task => !task.completed) });
   };
 
-  toggleCompleted = task => {
-    console.log("Completed: ", task);
+  toggleCompleted = taskID => {
     this.setState({
       data: this.state.data.map(item => {
-        if (item.id === task) {
+        if (item.id === taskID) {
           return { ...item, completed: !item.completed };
         }
         return item;
