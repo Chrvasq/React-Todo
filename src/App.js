@@ -26,10 +26,25 @@ class App extends Component {
   };
 
   clearCompleted = () => {
+    if (this.state.filteredData.length > 0) {
+      this.setState({
+        filteredData: this.state.filteredData.filter(task => !task.completed)
+      });
+    }
     this.setState({ data: this.state.data.filter(task => !task.completed) });
   };
 
   toggleCompleted = taskID => {
+    if (this.state.filteredData.length > 0) {
+      this.setState({
+        filteredData: this.state.filteredData.map(item => {
+          if (item.id === taskID) {
+            return { ...item, completed: !item.completed };
+          }
+          return item;
+        })
+      });
+    }
     this.setState({
       data: this.state.data.map(item => {
         if (item.id === taskID) {
@@ -42,9 +57,14 @@ class App extends Component {
 
   filterData = criteria => {
     this.setState({
-      filteredData: this.state.data.filter(data =>
-        data.task.toLowerCase().includes(criteria.toLowerCase())
-      )
+      filteredData: this.state.data.filter(item => {
+        if (
+          criteria !== "" &&
+          item.task.toLowerCase().includes(criteria.toLowerCase())
+        ) {
+          return item;
+        }
+      })
     });
   };
 
@@ -52,7 +72,10 @@ class App extends Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <SearchForm filterData={this.filterData} />
+        <SearchForm
+          filterData={this.filterData}
+          searchData={this.state.searchData}
+        />
         <ToDoList
           data={this.state.data}
           toggleCompleted={this.toggleCompleted}
