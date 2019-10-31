@@ -4,13 +4,21 @@ import ToDo from "./Todo";
 const ToDoList = props => {
   return (
     <div>
-      {props.data.map(task => (
-        <ToDo
-          key={task.id}
-          task={task}
-          toggleCompleted={props.toggleCompleted}
-        />
-      ))}
+      {props.filteredData.length > 0
+        ? props.filteredData.map(task => (
+            <ToDo
+              key={task.id}
+              task={task}
+              toggleCompleted={props.toggleCompleted}
+            />
+          ))
+        : props.data.map(task => (
+            <ToDo
+              key={task.id}
+              task={task}
+              toggleCompleted={props.toggleCompleted}
+            />
+          ))}
     </div>
   );
 };

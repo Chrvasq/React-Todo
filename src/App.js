@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ToDoForm from "./components/TodoComponents/TodoForm";
 import ToDoList from "./components/TodoComponents/TodoList";
+import SearchForm from "./components/TodoComponents/SearchForm";
 import "./App.css";
 
 class App extends Component {
@@ -10,7 +11,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      filteredData: []
     };
   }
 
@@ -38,13 +40,23 @@ class App extends Component {
     });
   };
 
+  filterData = criteria => {
+    this.setState({
+      filteredData: this.state.data.filter(data =>
+        data.task.toLowerCase().includes(criteria.toLowerCase())
+      )
+    });
+  };
+
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
+        <SearchForm filterData={this.filterData} />
         <ToDoList
           data={this.state.data}
           toggleCompleted={this.toggleCompleted}
+          filteredData={this.state.filteredData}
         />
         <ToDoForm addToDo={this.addToDo} clearCompleted={this.clearCompleted} />
       </div>
